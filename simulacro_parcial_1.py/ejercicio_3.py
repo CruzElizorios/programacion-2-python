@@ -30,6 +30,9 @@ class ColaConPromedio():
                 datos = datos + ", " + str(self.lista[index])
         return datos +"]"
     
+    def mostrar(self):
+        print(self.lista)
+    
 cola = ColaConPromedio()
 cola.push(11)
 cola.push(7)
@@ -38,3 +41,5 @@ print(cola)
 print("promedio: ", cola.obtener_promedio())
 cola.delete()
 print(cola)
+cola.mostrar()
+print("promedio: ", cola.obtener_promedio())
