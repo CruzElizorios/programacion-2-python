@@ -6,9 +6,9 @@ class Stack():
     def __init__(self) -> None:
         self.datos = []
     
-    def push(self,lista):
+    def push(self,lista:list):
         """ sirve para agregar una lista a Stack"""
-        if type(lista) == list:
+        if type(lista) is list:
             self.datos.append(lista)
             print(self.datos)
 
