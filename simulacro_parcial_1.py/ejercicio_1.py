@@ -21,6 +21,7 @@ print(lucas(2,3,2)) # 5
 print(lucas(2,3,3)) # 8 porque va a retornar (a,b,3-1) -> (a,b,2) = 5
                     #                        (a,b,3-2) -> (a,b,1) = 3    
 
+# lucasV2 no funciona para negativos
 def lucasV2(a:int, b:int, n:int) -> int:
     if n > 1:
         return lucas(a,b, n-1) + lucas(a,b, n-2)
