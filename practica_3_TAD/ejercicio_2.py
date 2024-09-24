@@ -14,22 +14,34 @@ class PilaConMaximo():
     def push(self,item: int):
         self.datos.append(item)
         self.grande = max(self.datos)
-        print(self.datos)
     
-    def pop(self):
+    def pop(self) -> int:
+        if self.is_empty():
+            print("No hay elementos")
+            return
         borrado = self.datos.pop()
         self.grande = max(self.datos)
         return borrado
     
     def obtener_maximo(self) -> int:
         return self.grande
+    
+    def is_empty(self) -> bool:
+        return self.datos == []
+    
+    def mostrar(self):
+        print(self.datos)
 
-inten = PilaConMaximo()
-inten.push(7)
-print(inten.obtener_maximo())
-inten.push(10)
-inten.push(15)
-print(inten.obtener_maximo())
-inten.pop()
-print(inten.obtener_maximo())
+p = PilaConMaximo()
+p.pop()
+p.push(7)
+p.mostrar()
+print(p.obtener_maximo())
+p.push(10)
+p.push(15)
+p.mostrar()
+print(p.obtener_maximo())
+p.pop()
+print(p.obtener_maximo())
+p.mostrar()
 
