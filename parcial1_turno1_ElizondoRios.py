@@ -6,7 +6,7 @@
 # nombre, Elizondo Rios
 # Ejercicio 1: Defina la siguiente funcion en forma recursiva.
 
-def enumerar(lista:list) -> str:
+def enumerar(lista:list[str]) -> str:
     """
     Recibe una lista de cadenas y devuelve una cadena con los elementos
     de la lista separados por coma y finalizados por punto.
@@ -54,11 +54,14 @@ class Pila:
         return self.elementos == []
     
     def mostrar(self):
+        #no era necesario, con hacer un print(p.elementos)
+        #se obtenia el mismo resultado
         print(self.elementos)
 
 p = Pila()
 p.push(8)
 p.push(3)
+#print(p.elementos)
 print(p.is_empty())
 p.mostrar()
 p.pop()
@@ -71,7 +74,7 @@ p.pop()
 # billetes de cada denominacion.
 class Caja:
     def __init__(self) -> None:
-        self.contenido = {}
+        self.contenido: dict[int, int] = {}
 
     def agregar(self, billete: int, cantidad: int) -> None:
         """Agrega a la caja la cantidad de billetes indicada
