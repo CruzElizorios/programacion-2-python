@@ -25,42 +25,63 @@ class BinaryTree:
 
     def __contains__(self: Self, data: Any) -> bool:
         """Determina si el arbol almacena el elemento 'data'. sobreescribe el in"""
-        print(self.data, data)
+        #print(self.data, data)
         if self.data == data:
             return True
-        # if self.left != None and self.right != None:
-        #     self.left.__contains__(data)
-        #     self.right.__contains__(data)
-        # if self.left == None and self.right != None:
-        #     self.right.__contains__(data)
-        # if self.left != None and self.right == None:
-        #     print("entre izquierdo")
-        #     #print(self.data,data)
-        #     self.left.__contains__(data)
-        # if self.left == None and self.right.__contains__(data):
-        #     print("lo encontre")
-        #     return
-        
-        # if self.left.__contains__(data)  and self.right == None:
-        #     print(f"lo encontre por izquierda {self.data, data}")
-        #     return True
         if self.left != None:
-            self.left.__contains__(data)
+            if self.left.__contains__(data):
+                return True
+            
         if self.right != None:
-            self.right.__contains__(data)
-
+            if self.right.__contains__(data):
+                return True
+            
         return False
 
 
 
     def max(self: Self) -> Any:
         """Devuelve el elemento maximo del arbol."""
+        if self.data == None:
+            return 
+        leftmax = 0
+        rightmax = 0
+        
+        if self.left != None:
+            leftmax = self.left.max()
+            #leftmax = max(self.data,self.left.max())
+        if self.right != None:
+            # rightmax = max(self.data,self.right.max())
+            rightmax = self.right.max()
+        
+        return max(self.data,leftmax,rightmax)
 
     def min(self: Self) -> Any:
         """Devuelve el elemento minimo del arbol."""
+        if self.data == None:
+            return 
+        leftmin = self.data
+        rightmin = self.data
+        
+        if self.left != None:
+            leftmin = self.left.min()
+            #leftmax = max(self.data,self.left.max())
+        if self.right != None:
+            # rightmax = max(self.data,self.right.max())
+            rightmin = self.right.min()
+        
+        return min(self.data,leftmin,rightmin)
 
     def height(self: Self) -> int:
         """Devuelve la altura del arbol."""
+        """ NO FUNCIONA POR AHORA"""
+        total = 0
+        if self.data == None or self.right == None or self.left == None:
+            return 0
+        if self.right != None:
+            return total + self.right.height()
+        if self.left != None:
+            return total + self.left.height()
 
     def is_balanced(self: Self) -> bool:
         """Determina si es un arbol binario balanceado."""
@@ -121,10 +142,19 @@ d3 = BinaryTree(18, d4, d2)
 derecha = BinaryTree(15, d1, d3)
 
 raiz = BinaryTree(14, izquierda, derecha)
-
+# Verificación de funcionamiento correcto de los métodos:
 #print(d3.is_complete())
-print(7 in i2)
-# preOrder(raiz,print)
+
+# print(7 in i2)
+# preOrder(i2,print)
+
+# print("valor max:",izquierda.max())
+# print("valor min:",izquierda.min())
+# print("arbol 'izquierda' abajo")
+# preOrder(izquierda,print)
+
+print(raiz.height())
+preOrder(raiz,print)
 
 # Cree un arbol binario de busqueda identico al anterior utilizando el metodo
 # insert.
