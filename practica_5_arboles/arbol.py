@@ -1,4 +1,5 @@
 from typing import Any, Self, Optional
+import copy
 
 class BinaryTree:
     """Arbol binario."""
@@ -74,14 +75,19 @@ class BinaryTree:
 
     def height(self: Self) -> int:
         """Devuelve la altura del arbol."""
-        """ NO FUNCIONA POR AHORA"""
-        total = 0
-        if self.data == None or self.right == None or self.left == None:
+        left_height = 0
+        right_height = 0
+        #si es hoja altura cero
+        if self.left == None and self.right == None:
             return 0
-        if self.right != None:
-            return total + self.right.height()
+        #calculo la altura de los subárboles izquierdo y derecho
         if self.left != None:
-            return total + self.left.height()
+            left_height = 1 + self.left.height()
+            
+        if self.right != None:
+            right_height = 1 + self.right.height()
+        
+        return max(left_height,right_height) 
 
     def is_balanced(self: Self) -> bool:
         """Determina si es un arbol binario balanceado."""
@@ -89,8 +95,19 @@ class BinaryTree:
     def __len__(self: Self) -> int:
         """Devuelve la cantidad de datos almacenados en el arbol."""
 
-def copy(tree: BinaryTree) -> BinaryTree:
+def copia(tree: BinaryTree) -> BinaryTree:
+    """Devuelve una copia de un arbol. Debe importar el modulo copy, escribir: import copy"""
+    return copy.deepcopy(tree)
+
+def copiaV2(tree: BinaryTree) -> BinaryTree:
     """Devuelve una copia de un arbol."""
+    if tree is None:
+        return None
+    new_tree = BinaryTree(tree.data)
+    new_tree.left = copiaV2(tree.left)
+    new_tree.right = copiaV2(tree.right)
+
+    return new_tree
 
 def preOrder(tree: BinaryTree, f: callable) -> None:
     """Aplica la funcion 'f' a todos los elementos del arbol, siguiendo un
@@ -101,14 +118,23 @@ def preOrder(tree: BinaryTree, f: callable) -> None:
     preOrder(tree.left,f)
     preOrder(tree.right,f)
 
-
 def inOrder(tree: BinaryTree, f: callable) -> None:
     """Aplica la funcion 'f' a todos los elementos del arbol, siguiendo un
     recorrido in-orden."""
+    if tree == None:
+        return
+    inOrder(tree.left,f)
+    f(tree)
+    inOrder(tree.right,f)
 
 def postOrder(tree: BinaryTree, f: callable) -> None:
     """Aplica la funcion 'f' a todos los elementos del arbol, siguiendo un
     recorrido post-orden."""
+    if tree == None:
+        return
+    postOrder(tree.left,f)
+    postOrder(tree.right,f)
+    f(tree)
 
 class BSTree(BinaryTree):
     """Arbol binario de busqueda."""
@@ -153,8 +179,20 @@ raiz = BinaryTree(14, izquierda, derecha)
 # print("arbol 'izquierda' abajo")
 # preOrder(izquierda,print)
 
-print(raiz.height())
-preOrder(raiz,print)
+# print("altura:",raiz.height())
+# preOrder(raiz,print)
+
+# nuevoArbol= copia(i3) # raiz 7, hijo izq: 5 -> hijo izq:4 hijo der:5
+# nuevoArbol.left.data = 33
+# preOrder(i3,print) # como i3 no se modifico, significa que la copia se realizo correctamente
+# print("copia abajo") # ya que apuntan a espacios de memorias distintos
+# preOrder(nuevoArbol,print) # raiz 7, hijo izq: 33 -> hijo izq:4 hijo der:5
+
+nuevoTree = copiaV2(i3)
+nuevoTree.left.data = 26
+preOrder(i3,print)
+print("copia abajo")
+preOrder(nuevoTree,print)
 
 # Cree un arbol binario de busqueda identico al anterior utilizando el metodo
 # insert.
