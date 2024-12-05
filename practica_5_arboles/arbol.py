@@ -138,13 +138,36 @@ def postOrder(tree: BinaryTree, f: callable) -> None:
 
 class BSTree(BinaryTree):
     """Arbol binario de busqueda."""
-    
+
     def __contains__(self: Self, data: Any) -> bool:
         """Determina si el arbol almacena el elemento 'data'."""
+        # Si el valor actual coincide, lo encontramos
+        if self.data == data:
+            return True
+        # Buscar en el subárbol izquierdo si el valor es menor
+        elif data < self.data:
+            if self.left:
+                return data in self.left
+            else:
+                return False
+        # Buscar en el subárbol derecho si el valor es mayor
+        elif data > self.data:
+            if self.right:
+                return data in self.right
+            else:
+                return False
+        # Si no se encuentra, retornar False
+        return False
+
 
     def max(self: Self) -> Any:
         """Devuelve el elemento maximo del arbol."""
-
+        # Si no hay subárbol derecho, este nodo tiene el valor máximo
+        if self.right == None:
+            return self.data
+        # Recursivamente busca en el subárbol derecho
+        return self.right.max()
+    
     def min(self: Self) -> Any:
         """Devuelve el elemento minimo del arbol."""
 
