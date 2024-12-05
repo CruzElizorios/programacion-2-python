@@ -138,7 +138,7 @@ def postOrder(tree: BinaryTree, f: callable) -> None:
 
 class BSTree(BinaryTree):
     """Arbol binario de busqueda."""
-
+    
     def __contains__(self: Self, data: Any) -> bool:
         """Determina si el arbol almacena el elemento 'data'."""
 
@@ -150,6 +150,32 @@ class BSTree(BinaryTree):
 
     def insert(self: Self, data: Any) -> None:
         """Inserta el elemento 'data' en el lugar correspondiente."""
+        # Insertar en el subárbol izquierdo
+        if data < self.data:  
+            if self.left == None:
+                # Crear un nuevo nodo si está vacío
+                self.left = BSTree(data)  
+            else:
+                self.left.insert(data)  # Recursión
+        # Insertar en el subárbol derecho
+        elif data > self.data:  
+            if self.right == None:
+                # Crear un nuevo nodo si está vacío
+                self.right = BSTree(data)  
+            else:
+                self.right.insert(data)  # Recursión
+        # Si el valor ya está en el árbol, no hacemos nada (evitamos duplicados).
+
+    def to_list_in_order(self) -> list[Any]:
+        """Devuelve todos los elementos del árbol en una lista ordenada (In-Orden)."""
+        elements = []
+        if self.left:
+            elements.extend(self.left.to_list_in_order())  # Subárbol izquierdo
+        elements.append(self.data)  # Nodo actual
+        if self.right:
+            elements.extend(self.right.to_list_in_order())  # Subárbol derecho
+        return elements
+
 
 # Dibuje el siguiente arbol:
 i1 = BinaryTree(3)
